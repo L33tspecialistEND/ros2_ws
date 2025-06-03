@@ -13,13 +13,14 @@ setup(
     ],
     install_requires=['setuptools'],
     zip_safe=True,
-    maintainer='asknoxx',
+    maintainer='Ntiaju Chukwuebuka Eric',
     maintainer_email='ntiajubukason@gmail.com',
-    description='TODO: Package description',
-    license='TODO: License declaration',
+    description='ROS2 Python package for controlling robot LEDs via Jetson GPIO',
+    license='Apache License 2.0',
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            'led_service = robot_led_control.robot_led_service_node:main',
         ],
     },
 )
