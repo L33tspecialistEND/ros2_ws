@@ -72,7 +72,7 @@ bool UltrasonicSensor::read_distance(int slave_id, uint16_t& distance_mm)
     }
 
     uint16_t received_distance;     // Holds distance read by the sensor
-    int rc = modbus_read_registers(ctx_, 0x0100, 1, &received_distance);
+    int rc = modbus_read_registers(ctx_, 0x0101, 1, &received_distance);
 
     if (rc == -1)
     {
