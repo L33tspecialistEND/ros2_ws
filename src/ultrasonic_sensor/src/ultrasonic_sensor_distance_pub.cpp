@@ -20,7 +20,7 @@ public:
       parity_('N'),
       data_bits_(8),
       stop_bits_(1),
-      num_sensors_(4),
+      num_sensors_(2),  // Changed from 4 to 2 as I only have 2 sensors
       sensor_controller_(port_name_, baud_rate_, parity_, data_bits_, stop_bits_),
       is_sensor_connected_(false) // Initialize connection state
     {
@@ -46,7 +46,7 @@ public:
             is_sensor_connected_ = true;
         }
 
-        timer_ = this->create_wall_timer(100ms, std::bind(&UltrasonicSensorDistancePub::timer_callback, this));
+        timer_ = this->create_wall_timer(300ms, std::bind(&UltrasonicSensorDistancePub::timer_callback, this));
         RCLCPP_INFO(this->get_logger(), "Ultrasonic sensor distance publisher node started.");
     }
 
@@ -96,7 +96,7 @@ private:
             for (int iii = 0; iii < num_sensors_; ++iii)
             {
                 uint16_t distance{};
-                int slave_id = iii + 1; // slave ID starts with 1
+                int slave_id = iii + 1; // slave ID starts from 1
 
                 if (sensor_controller_.read_distance(slave_id, distance))
                 {
@@ -113,6 +113,7 @@ private:
                             rear_sensor_publisher_->publish(msg);
                             RCLCPP_INFO(this->get_logger(), "Rear sensor (ID 2): %.2f", msg.data);
                             break;
+                        /*
                         case 3:
                             left_sensor_publisher_->publish(msg);
                             RCLCPP_INFO(this->get_logger(), "Left sensor (ID 3): %.2f", msg.data);
@@ -121,6 +122,7 @@ private:
                             right_sensor_publisher_->publish(msg);
                             RCLCPP_INFO(this->get_logger(), "Right sensor (ID 4): %.2f", msg.data);
                             break;
+                        */                        
                         default:
                             RCLCPP_WARN(this->get_logger(), "Unknown slave ID: %d", slave_id);
                             break;
@@ -130,7 +132,7 @@ private:
                 {
                     RCLCPP_WARN(this->get_logger(), "Failed to read distance from sensor ID: %d. Marking sensor as potentially disconnected for next cycle if persistent.", slave_id);
                 }
-                std::this_thread::sleep_for(std::chrono::milliseconds(10)); // Still blocking, but sometimes necessary for serial.
+                std::this_thread::sleep_for(std::chrono::milliseconds(30));
             }
         }
     }
