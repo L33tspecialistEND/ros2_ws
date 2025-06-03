@@ -4,7 +4,16 @@ from robot_led_interfaces.srv import SetRobotLedState
 from .gpio_control import GPIOControl
 
 class RobotLedService(Node):
+    def __init__(self):
+        super().__init__("robot_led_service_node")
 
+        self.gpio_control = GPIOControl(mode = GPIOControl.NumberingMode.BOARD)
+
+        self.srv = self.create_service(SetRobotLedState, "/set_robot_led_state", self.set_led_state_callback)
+
+        self.get_logger().info("Robot LED Service Node ready.")
+
+    
 
 def main(args = None):
     rclpy.init(args = args)
