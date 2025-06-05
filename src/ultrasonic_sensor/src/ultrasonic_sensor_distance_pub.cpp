@@ -20,7 +20,7 @@ public:
       parity_('N'),
       data_bits_(8),
       stop_bits_(1),
-      num_sensors_(2),  // Changed from 4 to 2 as I only have 2 sensors
+      num_sensors_(4),  // Changed back to 4
       sensor_controller_(port_name_, baud_rate_, parity_, data_bits_, stop_bits_),
       is_sensor_connected_(false) // Initialize connection state
     {
@@ -113,7 +113,7 @@ private:
                             rear_sensor_publisher_->publish(msg);
                             RCLCPP_INFO(this->get_logger(), "Rear sensor (ID 2): %.2f", msg.data);
                             break;
-                        /*
+                        
                         case 3:
                             left_sensor_publisher_->publish(msg);
                             RCLCPP_INFO(this->get_logger(), "Left sensor (ID 3): %.2f", msg.data);
@@ -122,7 +122,7 @@ private:
                             right_sensor_publisher_->publish(msg);
                             RCLCPP_INFO(this->get_logger(), "Right sensor (ID 4): %.2f", msg.data);
                             break;
-                        */                        
+                        
                         default:
                             RCLCPP_WARN(this->get_logger(), "Unknown slave ID: %d", slave_id);
                             break;
