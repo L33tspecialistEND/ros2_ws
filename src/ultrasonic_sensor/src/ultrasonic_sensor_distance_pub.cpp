@@ -46,7 +46,7 @@ public:
             is_sensor_connected_ = true;
         }
 
-        timer_ = this->create_wall_timer(300ms, std::bind(&UltrasonicSensorDistancePub::timer_callback, this));
+        timer_ = this->create_wall_timer(150ms, std::bind(&UltrasonicSensorDistancePub::timer_callback, this));
         RCLCPP_INFO(this->get_logger(), "Ultrasonic sensor distance publisher node started.");
     }
 
