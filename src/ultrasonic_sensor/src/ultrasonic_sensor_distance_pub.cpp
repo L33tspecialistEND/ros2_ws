@@ -16,7 +16,7 @@ public:
     UltrasonicSensorDistancePub()
     : Node("ultrasonic_sensor_distance_pub"),
       port_name_("/dev/ttyUSB0"),
-      baud_rate_(9600),
+      baud_rate_(115200),
       parity_('N'),
       data_bits_(8),
       stop_bits_(1),
