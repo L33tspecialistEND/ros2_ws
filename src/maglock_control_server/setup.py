@@ -13,10 +13,10 @@ setup(
     ],
     install_requires=['setuptools'],
     zip_safe=True,
-    maintainer='asknoxx',
+    maintainer='Ntiaju Chukwuebuka Eric',
     maintainer_email='ntiajubukason@gmail.com',
-    description='TODO: Package description',
-    license='Apache-2.0',
+    description='A package to handle the lock and unlock of an electromagnetic lock',
+    license='Apache License 2.0',
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
